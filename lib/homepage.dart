@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nairaverse/pages/categories/addmoney.dart';
+import 'package:nairaverse/pages/categories/exchange.dart';
+import 'package:nairaverse/pages/categories/statement.dart';
+import 'package:nairaverse/pages/categories/details.dart';
 
 class HomePages extends StatelessWidget {
   const HomePages({super.key});
@@ -6,7 +10,7 @@ class HomePages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    backgroundColor: Colors.green,
+      backgroundColor: Colors.green,
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -41,10 +45,33 @@ class HomePages extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      _buildIconTextButton(Icons.add, 'Add money'),
-                      _buildIconTextButton(Icons.currency_exchange, 'Exchange'),
-                      _buildIconTextButton(Icons.receipt_long, 'Statement'),
-                      _buildIconTextButton(Icons.info_outline, 'Details'),
+                      _buildIconTextButton(context, Icons.add, 'Add money', () {
+                        // Handle tap for Add money
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => AddMoney()),
+                        );
+                      }),
+                      _buildIconTextButton(context, Icons.currency_exchange, 'Exchange', () {
+                        // Handle tap for Exchange
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Exchange()),
+                        );
+                      }),
+                      _buildIconTextButton(context, Icons.receipt_long, 'Statement', () {
+                        // Handle tap for Statement
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Statement()),
+                        );
+                      }),
+                      _buildIconTextButton(context, Icons.info_outline, 'Details', () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Details()),
+                        );
+                      }),
                     ],
                   ),
                   SizedBox(height: 20),
@@ -61,14 +88,18 @@ class HomePages extends StatelessWidget {
       ),
     );
   }
-}
 
-Widget _buildIconTextButton(IconData icon, String label) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Icon(icon, color: Colors.white),
-        Text(label, style: TextStyle(color: Colors.white)),
-      ],
+  Widget _buildIconTextButton(BuildContext context, IconData icon, String label, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Icon(icon, color: Colors.white),
+          Text(label, style: TextStyle(color: Colors.white)),
+        ],
+      ),
     );
   }
+}
+
