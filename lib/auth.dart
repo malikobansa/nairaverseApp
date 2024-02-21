@@ -25,7 +25,7 @@ Future loginUser(String email, String password) async {
     final user =
         await account.createEmailSession(email: email, password: password);
     return true;
-  } on AppwriteException catch (e) {
+  } on AppwriteException {
     return false;
   }
 }

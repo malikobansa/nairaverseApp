@@ -6,7 +6,7 @@ import 'package:nairaverse/homepage.dart'; // Ensure this file exists and has Ho
 import 'package:nairaverse/pages/auth/signup.dart'; 
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: LoginForm(),
   ));
 }
@@ -28,10 +28,10 @@ class _LoginFormState extends State<LoginForm> {
       loginUser(emailController.text, passwordController.text)
           .then((value) {
         if (value) { // Assuming value is bool.
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Login Successful")));
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePages())); // Corrected class name.
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Login Successful")));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePages())); // Corrected class name.
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Login Failed: Incorrect email or password")));
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Login Failed: Incorrect email or password")));
         }
       }).catchError((error) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Login Failed: $error")));
@@ -43,7 +43,7 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login Form'),
+        title: const Text('Login Form'),
       ),
       body: Form(
         key: _formKey,
@@ -54,11 +54,11 @@ class _LoginFormState extends State<LoginForm> {
             children: <Widget>[
               TextFormField(
                 controller: emailController,
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(labelText: 'Email'),
               ),
               TextFormField(
                 controller: passwordController,
-                decoration: InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -69,11 +69,11 @@ class _LoginFormState extends State<LoginForm> {
               ),
               ElevatedButton(
                 onPressed: _submit,
-                child: Text('Login'),
+                child: const Text('Login'),
               ),
               GestureDetector(
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp())),
-                child: Row(
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUp())),
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(

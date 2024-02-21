@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nairaverse/auth.dart';
-import 'package:nairaverse/main.dart';
 import 'package:nairaverse/pages/auth/login.dart';
 
 class SignUp extends StatelessWidget {
@@ -13,7 +12,7 @@ class SignUp extends StatelessWidget {
     TextEditingController passwordController = TextEditingController();
     TextEditingController dobController = TextEditingController();
 
-    void _submit() {
+    void submit() {
       String username = usernameController.text;
       String email = emailController.text;
       String password = passwordController.text;
@@ -34,50 +33,67 @@ class SignUp extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
+                const Text(
                   "Create your profile",
                   style: TextStyle(fontSize: 32),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
                   controller: usernameController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Username',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 TextFormField(
                   controller: emailController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Email',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 TextFormField(
                   controller: passwordController,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Password',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
                     createUser( usernameController.text, emailController.text, passwordController.text).
                     then((value){
                       if(value=="success"){
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content : Text("Account Created")));
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginForm()));
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content : Text("Account Created")));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginForm()));
                       } else{
                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content : Text(value)));
                       }
                     });
                   },
-                  child: Text('Submit'),
+                  child: const Text('Submit'),
                 ),
+                GestureDetector(
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginForm())),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Already have an account?",
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      "Log In",
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+              ),
               ],
             ),
           ),

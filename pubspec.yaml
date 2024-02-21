@@ -38,6 +38,7 @@ dependencies:
   introduction_slider: ^2.0.1
   firebase_core: ^2.25.4
   appwrite: ^11.0.1
+  indexed: ^0.0.8
 
 dev_dependencies:
   flutter_test:

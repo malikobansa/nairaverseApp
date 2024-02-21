@@ -6,8 +6,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:nairaverse/pages/auth/signup.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -26,7 +24,7 @@ class MyApp extends StatelessWidget {
 }
 
 class Splash extends StatefulWidget {
-  const Splash({Key? key});
+  const Splash({super.key});
 
   @override
   State<Splash> createState() => _SplashState();
@@ -75,7 +73,7 @@ class _SplashState extends State<Splash> {
 }
 
 class IntroSlider extends StatelessWidget {
-  const IntroSlider({Key? key});
+  const IntroSlider({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -87,37 +85,37 @@ class IntroSlider extends StatelessWidget {
             width: 200,
             height: 100,
           ),
-          title: Text("Title 1"),
+          title: const Text("Title 1"),
           backgroundColor: Colors.red,
         ),
         IntroductionSliderItem(
           logo: Image.asset("images/background.png"),
-          title: Text("Title 2"),
+          title: const Text("Title 2"),
           backgroundColor: Colors.green,
         ),
         IntroductionSliderItem(
           logo: Image.asset("images/background.png"),
-          title: Text("Title 3"),
+          title: const Text("Title 3"),
           backgroundColor: Colors.blue,
         ),
       ],
-      done: Done(
+      done: const Done(
         child: Icon(Icons.done),
         home: HomePage(),
       ),
-      next: Next(child: Icon(Icons.arrow_forward)),
-      back: Back(child: Icon(Icons.arrow_back)),
-      dotIndicator: DotIndicator(),
+      next: const Next(child: Icon(Icons.arrow_forward)),
+      back: const Back(child: Icon(Icons.arrow_back)),
+      dotIndicator: const DotIndicator(),
     );
   }
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key});
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SignUp(),
     );
   }
