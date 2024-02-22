@@ -54,11 +54,17 @@ class _LoginFormState extends State<LoginForm> {
             children: <Widget>[
               TextFormField(
                 controller: emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(
+                  labelText: 'Email',                
+                border: OutlineInputBorder(),
+                ),
               ),
               TextFormField(
                 controller: passwordController,
-                decoration: const InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(
+                  labelText: 'Password',
+                  border: OutlineInputBorder(),
+                  ),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
