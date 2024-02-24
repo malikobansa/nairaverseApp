@@ -36,11 +36,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_native_splash: ^2.3.10
   introduction_slider: ^2.0.1
-  firebase_core: ^2.25.4
   appwrite: ^11.0.1
-  indexed: ^0.0.8
-  ade_flutterwave_working_version: ^0.0.2+2
-  flutterwave_standard: ^1.0.7
+  flutter_paystack: ^1.0.7
+  # package_info_plus: ^5.0.1
+
+dependencies_overrides:
+  package_info_plus:
 
 dev_dependencies:
   flutter_test:
