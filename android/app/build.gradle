@@ -2,8 +2,6 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
-    id "com.android.application"
-    id "com.google.gms.google-services"
 }
 
 def localProperties = new Properties()
@@ -26,8 +24,8 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.nairaverse"
-    compileSdkVersion flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersionflutter run
+    compileSdkVersion 34
+    ndkVersion flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -47,7 +45,7 @@ android {
         applicationId "com.example.nairaverse"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -66,6 +64,4 @@ flutter {
     source '../..'
 }
 
-dependencies {
-    implementation platform('com.google.firebase:firebase-bom:32.7.2')
-}
+dependencies {}

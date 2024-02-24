@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_paystack/flutter_paystack.dart';
-
+import 'package:flutter_paystack_payment/flutter_paystack_payment.dart';
+// import 'package:flutter_paystack/flutter_paystack.dart';
 
 class AddMoney extends StatefulWidget {
   const AddMoney({Key? key}) : super(key: key);
@@ -13,8 +15,9 @@ class AddMoney extends StatefulWidget {
 class _AddMoneyState extends State<AddMoney> {
   String selectedPaymentMethod = 'card';
   final TextEditingController _amountController = TextEditingController();
-  final String paystackPublicKey = 'pk_live_c5240f3c34199d9da0832cec2734c2ce138007a4'; // Use your Paystack public key
-  final plugin = PaystackPlugin();
+  final String paystackPublicKey =
+      'pk_live_c5240f3c34199d9da0832cec2734c2ce138007a4'; // Use your Paystack public key
+  final plugin = PaystackPayment();
 
   @override
   void initState() {
@@ -22,10 +25,14 @@ class _AddMoneyState extends State<AddMoney> {
     super.initState();
   }
 
-  void initializePaystack() {
-    plugin.initialize(publicKey: paystackPublicKey);
+  Future<void> initializePaystack() async {
+    try {
+      await plugin.initialize(publicKey: paystackPublicKey);
+    } catch (error) {
+      log('Error initializing plugin $error');
+    }
   }
-  
+
   @override
   void dispose() {
     _amountController.dispose();
@@ -112,7 +119,9 @@ class _AddMoneyState extends State<AddMoney> {
               leading: const Icon(CupertinoIcons.creditcard_fill),
               title: const Text('Apple Pay'),
               trailing: Icon(
-                selectedPaymentMethod == 'applePay' ? Icons.check_circle : Icons.radio_button_unchecked,
+                selectedPaymentMethod == 'applePay'
+                    ? Icons.check_circle
+                    : Icons.radio_button_unchecked,
                 color: selectedPaymentMethod == 'applePay' ? Colors.blue : null,
               ),
               onTap: () => _handlePaymentMethodChange('applePay'),
@@ -121,15 +130,16 @@ class _AddMoneyState extends State<AddMoney> {
               leading: const Icon(Icons.credit_card),
               title: const Text('Credit or Debit card'),
               trailing: Icon(
-                selectedPaymentMethod == 'card' ? Icons.check_circle : Icons.radio_button_unchecked,
+                selectedPaymentMethod == 'card'
+                    ? Icons.check_circle
+                    : Icons.radio_button_unchecked,
                 color: selectedPaymentMethod == 'card' ? Colors.blue : null,
               ),
               onTap: () => _handlePaymentMethodChange('card'),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              child: const Text('Add £50.00 GBP'),
-              onPressed: _processPaymentWithPaystack,
+              onPressed: () => _processPaymentWithPaystack(),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 foregroundColor: Colors.white,
@@ -138,6 +148,7 @@ class _AddMoneyState extends State<AddMoney> {
                 ),
                 padding: const EdgeInsets.all(16.0),
               ),
+              child: const Text('Add £50.00 GBP'),
             ),
           ],
         ),

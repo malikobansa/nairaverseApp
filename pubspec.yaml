@@ -37,11 +37,13 @@ dependencies:
   flutter_native_splash: ^2.3.10
   introduction_slider: ^2.0.1
   appwrite: ^11.0.1
-  flutter_paystack: ^1.0.7
+  flutter_paystack_payment: ^0.1.3+1
+  # flutter_paystack: ^1.0.7
   # package_info_plus: ^5.0.1
 
-dependencies_overrides:
-  package_info_plus:
+dependency_overrides:
+  package_info_plus: 
+  http:
 
 dev_dependencies:
   flutter_test:
