@@ -1,9 +1,11 @@
 import 'dart:developer';
-
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_paystack_payment/flutter_paystack_payment.dart';
-// import 'package:flutter_paystack/flutter_paystack.dart';
+import 'package:flutter_paystack_plus/flutter_paystack_plus.dart';
+
+//import 'package:flutter_paystack/flutter_paystack.dart';
 
 class AddMoney extends StatefulWidget {
   const AddMoney({Key? key}) : super(key: key);
@@ -16,7 +18,9 @@ class _AddMoneyState extends State<AddMoney> {
   String selectedPaymentMethod = 'card';
   final TextEditingController _amountController = TextEditingController();
   final String paystackPublicKey =
-      'pk_live_c5240f3c34199d9da0832cec2734c2ce138007a4'; // Use your Paystack public key
+      'pk_live_c5240f3c34199d9da0832cec2734c2ce138007a4';
+  final String payStackSecretKey =
+      'sk_live_f4ce681ecb88677787f9e9e2d548d05582b4d489'; // Use your Paystack public key
   final plugin = PaystackPayment();
 
   @override
@@ -29,7 +33,7 @@ class _AddMoneyState extends State<AddMoney> {
     try {
       await plugin.initialize(publicKey: paystackPublicKey);
     } catch (error) {
-      log('Error initializing plugin $error');
+      print('Error initializing plugin $error');
     }
   }
 
@@ -83,6 +87,12 @@ class _AddMoneyState extends State<AddMoney> {
         SnackBar(content: Text('Payment error: $e')),
       );
     }
+
+  }
+
+   String generateRef() {
+    final randomCode = Random().nextInt(3234234);
+    return 'ref-$randomCode';
   }
 
   String _getReference() {
@@ -139,7 +149,30 @@ class _AddMoneyState extends State<AddMoney> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () => _processPaymentWithPaystack(),
+              // onPressed: () => _processPaymentWithPaystack(),
+              onPressed: () async {
+                  final ref = generateRef();
+                  final amount = int.parse(_amountController.text);
+                  try {
+                    return await FlutterPaystackPlus.openPaystackPopup(
+                        publicKey: paystackPublicKey,
+                        context: context,
+                        secretKey: payStackSecretKey,
+                        currency: 'NGN',
+                        customerEmail: 'nairaverse@gmail.com',
+                        amount: (amount * 100).toString(),
+                        reference: ref,
+                        // callBackUrl: "[GET IT FROM YOUR PAYSTACK DASHBOARD]",
+                        onClosed: () {
+                          debugPrint('Could\'nt finish payment');
+                        },
+                        onSuccess: () {
+                          debugPrint('Payment successful');
+                        });
+                  } catch (e) {
+                    debugPrint(e.toString());
+                  }
+                },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 foregroundColor: Colors.white,
